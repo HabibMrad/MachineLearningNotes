@@ -58,6 +58,17 @@ For a training set of \textbf{more than one example}, we have 2 types of gradien
         \newline \}
 \end{enumerate}
 
+In the original linear regression algorithm, to make prediction at a query point $x$ (to evaluate $h(x)$), we would:
+\begin{enumerate}
+    \item Fit $\theta$ to minimize $\sum\limits_i(y^{(i)}-\theta^Tx^{(i)})^2$.
+    \item Output $\theta^Tx$.
+\end{enumerate}
+In contrast, the locally weighted linear regression algorithm would:
+\begin{enumerate}
+    \item Fit $\theta$ to minimize $\sum\limits_iw^{(i)}(y^{(i)}-\theta^Tx^{(i)})^2$.
+    \item Output $\theta^Tx$. 
+\end{enumerate}
+
 \section{Classification and logistic regression}
 
 \section{Generalized Linear Models}
