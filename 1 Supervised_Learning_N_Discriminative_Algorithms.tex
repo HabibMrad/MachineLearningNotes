@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{mathtools}
+\setlength{\parindent}{2em}
+\begin{document}
+\title{Supervised Learning and Discriminative Algorithms}\author{jufan}\date{\today}
+\maketitle
+\tableofcontents
+
+\section{Linear Regression}
+% Regular paragraphs in a LaTex file are separated by (1) a blank line or (2) by the \par command
+First we consider a simple situation where we want to approximate \emph{\textbf{y}} as a linear function of \emph{\textbf{x}}:
+\begin{equation*}
+h_\theta(x)=\theta_0+\theta_1x_1+\theta_2x_2
+\end{equation*}
+Simplified format:
+\begin{equation*}
+h(x)=\sum\limits_{i=0}^n \theta_ix_i=\theta^Tx
+\end{equation*}
+where the $\theta_i$'s are the \emph{\textbf{parameters/weights}} with an extra \emph{\textbf{intercept term}} $\theta_0$ for $x_0=1$. ($\theta$ and $x$ are both $n+1$-dimentional vector)
+
+Define the \emph{\textbf{cost function}} for \emph{\textbf{ordinary least squares}} regression model:
+\begin{equation*}
+J(\theta)=\frac{1}{2}\sum\limits_{i=1}^m(h_\theta(x^{(i)})-y^{(i)})^2
+\end{equation*}
+Our target: To choose $\theta$ so as to \emph{\textbf{minimize}} $J(\theta)$.
+We use \emph{\textbf{gradient descent}} algorithm to solve this:
+\begin{equation*}
+\theta_j\coloneqq\theta_j-\alpha\frac{\partial}{\partial{\theta_j}}J(\theta)
+\end{equation*}
+Note that the update is \emph{\textbf{simultaneously}} performed for \emph{\textbf{all values}} of $j=0,\ldots,n$ , and $\alpha$ is the \emph{\textbf{learning rate}}.
+\newline For $J(\theta)$ defined above, we have:
+\begin{align*}
+\frac{\partial}{\partial{\theta_j}}J(\theta) &= \frac{\partial}{\partial{\theta_j}}\frac{1}{2}(h_\theta(x)-y)^2 \\
+                                             &= 2\cdot\frac{1}{2}(h_\theta(x)-y)\cdot\frac{\partial}{\partial{\theta_j}}(h_\theta(x)-y) \\
+                                             &=
+                                             (h_\theta(x)-y)\cdot\frac{\partial}{\partial{\theta_j}}\left(\sum\limits_{i=0}^n\theta_ix_i-y\right) \\
+                                             &= (h_\theta(x)-y)x_j
+\end{align*}
+
+For a \textbf{single training example}, this gives the update rule (\emph{\textbf{LMS/Widrow-Hoff update rule}}):
+\begin{equation*}
+\theta_j\coloneqq\theta_j+\alpha(y^{(i)}-h_\theta(x^{(i)}))x_j^{(i)}
+\end{equation*}
+
+For a training set of \textbf{more than one example}, we have 2 types of gradient descent choices:
+\begin{enumerate}
+    \item \textbf{batch gradient descent}
+        \newline Repeat until convergence \{
+        \newline $\theta_j\coloneqq\theta_j+\alpha\sum\limits_{i=1}^m(y^{(i)}-h_\theta(x^{(i)}))x_j^{(i)}$ (for every j).
+        \newline \}
+    \item \textbf{stochastic gradient descent}
+        \newline Loop \{
+        \newline \hspace*{1cm} for $i=1$ to $m$, \{
+        \newline \hspace*{1cm} \hspace{1cm}$\theta_j\coloneqq\theta_j+\alpha(y^{(i)}-h_\theta(x^{(i)}))x_j^{(i)}$ (for every j).
+        \newline \hspace*{1cm}\}
+        \newline \}
+\end{enumerate}
+
+\section{Classification and logistic regression}
+
+\section{Generalized Linear Models}
+
+\end{document}
