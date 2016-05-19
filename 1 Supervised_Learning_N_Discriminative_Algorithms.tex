@@ -66,11 +66,56 @@ In the original linear regression algorithm, to make prediction at a query point
 In contrast, the locally weighted linear regression algorithm would:
 \begin{enumerate}
     \item Fit $\theta$ to minimize $\sum\limits_iw^{(i)}(y^{(i)}-\theta^Tx^{(i)})^2$.
-    \item Output $\theta^Tx$. 
+    \item Output $\theta^Tx$.
 \end{enumerate}
 
 \section{Classification and logistic regression}
+In this section, we focus on the \textbf{Binary classification} problem in which \emph{\textbf{y}} can only take two values, 0 and 1.
+
+The first approach is to use the \emph{\textbf{logistic function/sigmoid function}}, and its form should be:
+\begin{equation*}
+h_\theta(x)=g(\theta^Tx)=\frac{1}{1+e^{-\theta^Tx}}
+\end{equation*}
+where
+\begin{equation*}
+g(z)=\frac{1}{1+e^{-x}}
+\end{equation*}
+One important property of sigmoid function:
+\begin{align*}
+g'(z) &= \frac{d}{dz}\frac{1}{1+e^{-z}} \\
+      &= \frac{1}{{(1+e^{-z})}^2}(e^{-z}) \\
+      &= \frac{1}{(1+e^{-z})}\left(1-\frac{1}{(1+e^{-z})}\right) \\
+      &= g(z)(1-g(z))
+\end{align*}
+
+We fit the parameters for logistic regression model via maximum likelihood.
+We assume that:
+\begin{align*}
+P(y=1\ |\ x;\theta) &= h_\theta(x) \\
+P(y=0\ |\ x;\theta) &= 1 - h_\theta(x)
+\end{align*}
+which could be more compactly written as:
+\begin{equation*}
+p(y\ |\ x;\theta) = (h_\theta(x))^y(1-h_\theta(x))^{1-y}
+\end{equation*}
+Thus under i.i.d assumption of the \emph{m} training examples, we have the likelihood of the parameters as:
+\begin{align*}
+L(\theta) &= p(\vec{y}\ |\ X;\theta) \\
+          &= \prod\limits_{i=1}^mp(y^{(i)}\ |\ x^{(i)};\theta) \\
+          &= \prod\limits_{i=1}^m\left(h_\theta(x^{(i)})\right)^{y^{(i)}}\left(1-h_\theta(x^{(i)})\right)^{1-y^{(i)}}
+\end{align*}
+It would be easier to maximize the log likelihood:
+\begin{align*}
+l(\theta) &= \log L(\theta) \\
+          &= \sum\limits_{i=1}^my^{(i)}\log h(x^{(i)}) + (1-y^{(i)}) \log(1-h(x^{(i)}))
+\end{align*}
+
+Now we have the \emph{\textbf{stochastic gradient ascent rule}} (because we want the maximum of log likelihood):
+\begin{equation*}
+\theta_j\coloneqq\theta_j + \alpha(y^{(i)}-h_\theta(x^{(i)}))x_j^{(i)}
+\end{equation*}
+
 
 \section{Generalized Linear Models}
 
-\end{document}
+\end{document} 
