@@ -115,7 +115,15 @@ Now we have the \emph{\textbf{stochastic gradient ascent rule}} (because we want
 \theta_j\coloneqq\theta_j + \alpha(y^{(i)}-h_\theta(x^{(i)}))x_j^{(i)}
 \end{equation*}
 
+If we change logistic regression to force it output either 0 or 1, which means \emph{\textbf{g}} becomes:
+\begin{equation*}
+g(z)=\begin{cases}
+     1 \quad if \ z\geq 0 \\
+     0 \quad if \ z<0
+     \end{cases}
+\end{equation*}
+With this modified definition of \emph{\textbf{g}} and the same update rule as above, we have the \emph{\textbf{Perceptron learning algorithm}}.
 
 \section{Generalized Linear Models}
 
-\end{document} 
+\end{document}
