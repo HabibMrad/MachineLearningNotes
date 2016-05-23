@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{indentfirst}
+\usepackage{mathtools}
+\usepackage{setspace}
+\setlength{\parindent}{2em}
+\begin{document}
+\title{Generative Algorithms}\author{jufan}\date{\today}
+\maketitle
+\tableofcontents
+
+\section{Generative Learning algorithms}
+\emph{\textbf{Discriminative learning algorithms}} are algorithms that try to:
+\begin{itemize}
+  \item learn $p(y\mid x)$ directly (such as logistic regression)
+  \item learn mappings directly from the space of inputs $\chi$ to the labels $\{0,1\}$ (such as perceptron algorithm)
+\end{itemize}
+
+\emph{\textbf{Generative learning algorithms}} are algorithms that try to model $p(x\mid y)$ and $p(y)$
+
+\begin{spacing}{2}
+\end{spacing}
+
+\emph{\textbf{Bayes rule}} is used to derived the posterior distribution on $y$ given $x$, given the \emph{\textbf{class priors}} $p(y)$ and conditional probability $p(x\mid y)$:
+\begin{equation*}
+p(y\mid x) = \frac{p(x\mid y)p(y)}{p(x)}
+\end{equation*}
+The denominator $p(x)$ is calculated by summation of all possible numerators, and can be ignored when calculating $p(y\mid x)$ to make prediction.
+
+The \emph{\textbf{multivariate normal distribution}} in $n$-dimensions, also called the \emph{\textbf{multivariate Gaussian distribution}}, is parameterized by a \emph{\textbf{mean vector}} $\mu\in\mathbb{R}^n$ and a \emph{\textbf{covariance matrix}} $\Sigma\in\mathbb{R}^{n\times m}$, where $\Sigma \geq 0$ is symmetric and positive semi-definite.
+
+Probability density of multivariate normal distribution is given by:
+\begin{equation*}
+p(x;\mu,\Sigma)=\frac{1}{(2\pi)^{n/2}\lvert\Sigma\rvert^{1/2}}\exp\left(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right)
+\end{equation*}
+in which $\lvert\Sigma\rvert$ is the determinant of the matrix $\Sigma$, and "$N(\mu,\Sigma)$" can be used the same as "$p(x;\mu,\Sigma)$".
+
+For a random variable $X$ distributed $N(\mu, \Sigma)$, the \emph{\textbf{mean}} is given by $\mu$:
+\begin{equation*}
+E[X]=\int_x xp(x;\mu,\Sigma)dx=\mu
+\end{equation*}
+For a random vector-valued variable $Z$, the \emph{\textbf{covariance}} is given by:
+\begin{equation*}
+Cov(Z)=E[(Z-E[Z])(Z-E[Z])^T]=E[ZZ^T]-(E[Z])(E[Z])^T
+\end{equation*}
+if $X\sim N(\mu,\Sigma)$, then $Cov(X)=\Sigma$.
+
+A Gaussian with zero mean and identity covariance is called the \emph{\textbf{standard normal distribution}}.
+
+
+
+\end{document} 
