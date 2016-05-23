@@ -48,6 +48,40 @@ if $X\sim N(\mu,\Sigma)$, then $Cov(X)=\Sigma$.
 
 A Gaussian with zero mean and identity covariance is called the \emph{\textbf{standard normal distribution}}.
 
+\emph{\textbf{Gaussian Discriminant Analysis (GDA) model}} is used to deal with problems in which the input features $x$ are continuous-valued random variables.
+The model is:
+\begin{align*}
+y\ &\sim\ Bernoulli(\phi) \\
+x\mid y=0\ &\sim\ N(\mu_0,\Sigma) \\
+x\mid y=1\ &\sim\ N(\mu_1,\Sigma) 
+\end{align*}
+And we have distributions as:
+\begin{align*}
+p(y)\ &=\ \phi^y(1-\phi)^{1-y} \\
+p(x\mid y=0)\ &=\ \frac{1}{(2\pi)^{n/2}\lvert\Sigma\rvert^{1/2}}\exp\left(-\frac{1}{2}(x-\mu_0)^T\Sigma^{-1}(x-\mu_0)\right) \\
+p(x\mid y=1)\ &=\ \frac{1}{(2\pi)^{n/2}\lvert\Sigma\rvert^{1/2}}\exp\left(-\frac{1}{2}(x-\mu_1)^T\Sigma^{-1}(x-\mu_1)\right)
+\end{align*}
+The parameters of this model are: $\phi, \Sigma, \mu_0, \mu_1$.
+The log-likelihood of the data is given by:
+\begin{align*}
+l(\phi, \mu_0, \mu_1, \Sigma)\ &=\ \log\prod_{i=1}^mp(x^{(i)},y^{(i)};\phi,\mu_0,\mu_1,\Sigma) \\
+                               &=\ \log\prod_{i=1}^mp(x^{(i)}\mid y^{(i)};\phi,\mu_0,\mu_1,\Sigma)p(y^{(i)};\phi)
+\end{align*}
+By maximizing $l$, we find the maximum likelihood estimate of the parameters above.
 
+In GDA, feature vectors $x$ are continuous, real-valued vectors, and in Naive Bayes $x$ are discrete-valued.
+
+To model $p(x\mid y)$, we make a very strong assumption (\emph{\textbf{Naive Bayes (NB) assumption}}): the $x_i$'s are conditionally independent given $y$. The resulting algorithm is called the \emph{\textbf{Naive Bayes classifier}}.
+
+Parameters of this model are $\phi_{i\mid y=1}=p(x_i=1\mid y=1), \phi_{i\mid y=0}=p(x_i=1\mid y=0), \phi_y=p(y=1)$, and given the training set $\{(x^{(i)},y^{(i)});i=1,\ldots,m\}$, we have the joint likelihood of the data (which should be maximized to get the maximum likelihood estimates of parameters):
+\begin{equation*}
+L(\phi_{y},\phi_{i\mid y=0},\phi_{i\mid y=1})=\prod_{i=1}^mp(x^{(i)},y^{(i)})
+\end{equation*}
+After fitting these parameters, to make a prediction on a new example with features $x$, we only need to calculate:
+\begin{align*}
+p(y=1\mid x)\ &=\ \frac{p(x\mid y=1)p(y=1)}{p(x)} \\
+              &=\ \frac{\left(\prod\limits_{i=1}^np(x_i\mid y=1)\right)p(y=1)}{\left(\prod\limits_{i=1}^np(x_i\mid y=1)\right)p(y=1)+\left(\prod\limits_{i=1}^np(x_i\mid y=0)\right)p(y=0)}
+\end{align*}
+then pick whichever class that has the highest posterior probability.
 
 \end{document} 
