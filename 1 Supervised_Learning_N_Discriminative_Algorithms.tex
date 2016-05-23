@@ -91,17 +91,17 @@ g'(z) &= \frac{d}{dz}\frac{1}{1+e^{-z}} \\
 We fit the parameters for logistic regression model via maximum likelihood.
 We assume that:
 \begin{align*}
-P(y=1\ |\ x;\theta) &= h_\theta(x) \\
-P(y=0\ |\ x;\theta) &= 1 - h_\theta(x)
+P(y=1\mid x;\theta) &= h_\theta(x) \\
+P(y=0\mid x;\theta) &= 1 - h_\theta(x)
 \end{align*}
 which could be more compactly written as:
 \begin{equation*}
-p(y\ |\ x;\theta) = (h_\theta(x))^y(1-h_\theta(x))^{1-y}
+p(y\mid x;\theta) = (h_\theta(x))^y(1-h_\theta(x))^{1-y}
 \end{equation*}
 Thus under i.i.d assumption of the \emph{m} training examples, we have the likelihood of the parameters as:
 \begin{align*}
-L(\theta) &= p(\vec{y}\ |\ X;\theta) \\
-          &= \prod\limits_{i=1}^mp(y^{(i)}\ |\ x^{(i)};\theta) \\
+L(\theta) &= p(\vec{y}\mid X;\theta) \\
+          &= \prod\limits_{i=1}^mp(y^{(i)}\mid x^{(i)};\theta) \\
           &= \prod\limits_{i=1}^m\left(h_\theta(x^{(i)})\right)^{y^{(i)}}\left(1-h_\theta(x^{(i)})\right)^{1-y^{(i)}}
 \end{align*}
 It would be easier to maximize the log likelihood:
@@ -125,5 +125,24 @@ g(z)=\begin{cases}
 With this modified definition of \emph{\textbf{g}} and the same update rule as above, we have the \emph{\textbf{Perceptron learning algorithm}}.
 
 \section{Generalized Linear Models}
+Both regression ($y\mid x;\theta\sim N(\mu,\sigma^2)$) and classification methods ($y\mid x;\theta\sim Bernouli(\phi)$) are special cases of \emph{\textbf{Generalized Linear Models}}.
 
-\end{document}
+A class of distributions is in the \emph{\textbf{Exponential family}} if it can be written as:
+\begin{equation*}
+p(y;\eta)=b(y)\exp(\eta^TT(y)-a(\eta))
+\end{equation*}
+Here \emph{\textbf{$\eta$}} is called \emph{\textbf{natural parameter/canonical parameter}} of the distribution; $T(y)$ is called \emph{\textbf{sufficient statistic}}; $a(\eta)$ is called \emph{\textbf{log partition function}}, and $e^{-a(\eta)}$ is a \emph{\textbf{normalization constant}} that ensures the distribution $p(y;\eta)$ sums/integrates over y to 1.
+
+Now the Bernoulli distributions can be written as:
+\begin{align*}
+p(y;\phi) &= \phi^y(1-\phi)^{1-y} \\
+          &= \exp(y\log\phi+(1-y)\log(1-\phi)) \\
+          &= \exp\left(\left(\log\left(\frac{\phi}{1-\phi}\right)\right)y+\log(1-\phi)\right)
+\end{align*}
+
+And the Gaussian distributions can be written as:
+\begin{align*}
+p(y;\mu) &= \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{1}{2}(y-\mu)^2\right) \\
+         &= \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{1}{2}y^2\right)\cdot\exp\left(\mu y-\frac{1}{2}\mu^2\right)
+\end{align*}
+\end{document} 
