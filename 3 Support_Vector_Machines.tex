@@ -19,7 +19,7 @@ h_{w,b}(x)=g(w^Tx+b)
 \end{equation*}
 where $g(z)=1$ if $z\geq0$, and $g(z)=-1$ otherwise.
 
-Given a training example $(x^{(i)},y^{(i)})$ 
+Given a training example $(x^{(i)},y^{(i)})$
 
 Definition of \emph{\textbf{functional margin}}:
 \begin{equation*}
@@ -46,10 +46,25 @@ So the \emph{\textbf{geometric margin}} of $(w,b)$ with respect to a $+1$ class 
 \begin{equation*}
 \gamma^{(i)}=y^{(i)}\left(\left(\frac{w}{\lVert w\rVert}\right)^T x^{(i)}+\frac{b}{\lVert w\rVert}\right)
 \end{equation*}
-For a training set $S\ =\ \{(x^{(i)},y^{(i)});i=1,\ldots,m\}$, we have the functional margin of $(w,b)$ with respect to $S$ to be the smallest functional margins of the individual training examples:
+For a training set $S\ =\ \{(x^{(i)},y^{(i)});i=1,\ldots,m\}$, we have the geometric margin of $(w,b)$ with respect to $S$ to be the smallest geometric margins of the individual training examples:
 \begin{equation*}
 \gamma=\min_{i=1,\ldots,m}\gamma^{(i)}
 \end{equation*}
 
+Assume that we are given a training set that is \emph{\textbf{linearly separable}} (possible to separate the positive and negative examples using separating hyperplane).
+We need to find the separating hyperplane with the maximum geometric margin, thus have the optimization problem:
+\begin{align*}
+\max\nolimits_{\gamma,w,b} \gamma \\
+    \text{s.t.}\ &y^{(i)}(w^T x^{(i)}+b)\geq\gamma,\ i=1,\ldots,m \\
+                  &\lVert w\rVert=1
+\end{align*}
+
+$\lVert w\rVert=1$ constraint is to ensure that the functional margin equals the geometric margin.
+
+A cleaner version without the nasty (non-convex) constraint $\lVert w\rVert=1$:
+\begin{align*}
+\max\nolimits_{\gamma,w,b} \frac{\hat{\gamma}}{\lVert w\rVert} \\
+    \text{s.t.}\ &y^{(i)}(w^Tx^{(i)}+b)\geq\hat{\gamma},\ i=1,\ldots,m
+\end{align*}
 
 \end{document} 
