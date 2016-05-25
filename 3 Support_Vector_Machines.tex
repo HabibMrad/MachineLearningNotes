@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{indentfirst}
+\usepackage{mathtools}
+\usepackage{setspace}
+\setlength{\parindent}{2em}
+\begin{document}
+\title{Support Vector Machines}\author{jufan}\date{\today}
+\maketitle
+\tableofcontents
+
+\section{Support Vector Machines}
+Consider a linear classifier for a binary classification problem with labels \emph{\textbf{y}} and features \emph{\textbf{x}}. And we use $y\in \{-1,1\}$ to denote the class labels.
+
+The classifier is written as :
+\begin{equation*}
+h_{w,b}(x)=g(w^Tx+b)
+\end{equation*}
+where $g(z)=1$ if $z\geq0$, and $g(z)=-1$ otherwise.
+
+Given a training example $(x^{(i)},y^{(i)})$ 
+
+Definition of \emph{\textbf{functional margin}}:
+\begin{equation*}
+\hat{\gamma}^{(i)}=y^{(i)}(w^Tx+b)
+\end{equation*}
+And a large functional margin represents a confident and a correct prediction.
+For a training set $S\ =\ \{(x^{(i)},y^{(i)});i=1,\ldots,m\}$, we have the functional margin of $(w,b)$ with respect to $S$ to be the smallest functional margins of the individual training examples:
+\begin{equation*}
+\hat{\gamma}=\min_{i=1,\ldots,m}\hat{\gamma}^{(i)}
+\end{equation*}
+
+Problem of functional margin: by exploiting our freedom to scale \emph{\textbf{w}} and \emph{\textbf{b}}, we can make the functional margin arbitrarily large without really changing anything meaningful.
+
+Definition of \emph{\textbf{geometric margins}}:
+Consider a training example, which is a point with label $y^{(i)}=1$ at A, its distance to the decision boundary is $\gamma^{(i)}$ (the line segment AB). $w/\lVert w \rVert$ is a unit-length vector pointing in the same direction as \emph{w}, and point A represents $x^{(i)}$, so point B is given by $x^{(i)}-\gamma^{(i)}\cdot w/\lVert w \rVert$. Since B lies on the decision boundary, and points on the decision boundary satisfy the equation $w^T+b=0$, we have:
+\begin{equation*}
+w^T\left(x^{(i)}-\gamma^{(i)}\frac{w}{\lVert w \rVert}\right) + b =0
+\end{equation*}
+Solving for $\gamma^{(i)}$ yields
+\begin{equation*}
+\gamma^{(i)}=\frac{w^Tx^{(i)}+b}{\lVert w\rVert}={\left(\frac{w}{\lVert w\rVert}\right)}^Tx^{(i)}+\frac{b}{\lVert w\rVert}
+\end{equation*}
+So the \emph{\textbf{geometric margin}} of $(w,b)$ with respect to a $+1$ class training example $(x^{(i)},y^{(i)})$ is:
+\begin{equation*}
+\gamma^{(i)}=y^{(i)}\left(\left(\frac{w}{\lVert w\rVert}\right)^T x^{(i)}+\frac{b}{\lVert w\rVert}\right)
+\end{equation*}
+For a training set $S\ =\ \{(x^{(i)},y^{(i)});i=1,\ldots,m\}$, we have the functional margin of $(w,b)$ with respect to $S$ to be the smallest functional margins of the individual training examples:
+\begin{equation*}
+\gamma=\min_{i=1,\ldots,m}\gamma^{(i)}
+\end{equation*}
+
+
+\end{document} 
