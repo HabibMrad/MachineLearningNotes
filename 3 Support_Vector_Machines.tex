@@ -67,4 +67,63 @@ A cleaner version without the nasty (non-convex) constraint $\lVert w\rVert=1$:
     \text{s.t.}\ &y^{(i)}(w^Tx^{(i)}+b)\geq\hat{\gamma},\ i=1,\ldots,m
 \end{align*}
 
+We introduce the scaling constraint that the \emph{\textbf{functional margin}} of $w,b$ with respect to the training set must be 1:
+\begin{equation*}
+\hat{\gamma}=1
+\end{equation*}
+Thus we have the following optimization problem transformed from above:
+\begin{align*}
+\min\nolimits_{\gamma,w,b}\ &\ \frac{1}{2}\lVert w\rVert^2 \\
+                  &\ \text{s.t.}\  y^{(i)}(w^Tx^{(i)}+b)\geq1,\ i=1,\ldots,m
+\end{align*}
+
+Now time to introduce \emph{\textbf{Lagrange duality}}.
+
+Original problem:
+\begin{align*}
+\min\nolimits_w\ &\ f(w) \\
+                 &\ \text{s.t.}\ h_i(w)=0,\ i=1,\ldots,l
+\end{align*}
+Define \emph{\textbf{Lagrangian}} to be:
+\begin{equation*}
+L(w,\beta)=f(w)+\sum_{i=1}^l\beta_ih_i(w)
+\end{equation*}
+Where the $\beta_i$'s are called \emph{\textbf{Lagrange multipliers}}.
+We set $L$'s partial derivatives to zero and solve for $w$ and $\beta$:
+\begin{equation*}
+\frac{\partial L}{\partial w_i}=0;\ \frac{\partial L}{\partial \beta_i}=0
+\end{equation*}
+
+Now the formal part for \emph{\textbf{Lagrange Duality}}
+Define the \emph{\textbf{primal optimization problem}}:
+\begin{align*}
+\min\nolimits_w\quad\quad &f(w) \\
+\text{s.t.}\quad &g_i(w)\leq0,\quad i=1,\ldots,k \\
+                 &h_i(w)=0,\quad i=1,\ldots,l
+\end{align*}
+Define the \emph{\textbf{generalized Lagrangian}}:
+\begin{equation*}
+L(w,\alpha,\beta)=f(w)+\sum_{i=1}^{k}\alpha_ig_i(w)+\sum_{i=1}^l\beta_ih_i(w)
+\end{equation*}
+where $\alpha_i$'s and $\beta_i$'s are \emph{\textbf{Lagrange multipliers}}
+Consider the quantity:
+\begin{equation*}
+\theta_p(w)=\max_{\alpha,\beta:\alpha_i\geq0}L(w,\alpha,\beta)
+\end{equation*}
+
+If $w$ violates any of the primal constraints (e.g. if either $g_i(w)>0$ or $h_i(w)\neq0$ for some $i$), then we have:
+\begin{align*}
+\theta_p(w)\ &=\ \max_{\alpha,\beta:\alpha_i\geq0}f(w)+\sum_{i=1}^k\alpha_ig_i(w)+\sum_{i=1}^l\beta_ih_i(w) \\
+             &=\ \infty
+\end{align*}
+Conversely if all constraints are satisfied for a particular value of $w$, then $\theta_p(w)=f(w)$.
+So we have:
+\begin{equation*}
+\theta_p(w)=\begin{cases}
+f(w)\quad &\text{if $w$ satisfies primal constraints} \\
+\infty    &\text{otherwise}
+\end{cases}
+\end{equation*}
+
+
 \end{document} 
