@@ -95,12 +95,14 @@ We set $L$'s partial derivatives to zero and solve for $w$ and $\beta$:
 \end{equation*}
 
 Now the formal part for \emph{\textbf{Lagrange Duality}}
+
 Define the \emph{\textbf{primal optimization problem}}:
 \begin{align*}
 \min\nolimits_w\quad\quad &f(w) \\
 \text{s.t.}\quad &g_i(w)\leq0,\quad i=1,\ldots,k \\
                  &h_i(w)=0,\quad i=1,\ldots,l
 \end{align*}
+
 Define the \emph{\textbf{generalized Lagrangian}}:
 \begin{equation*}
 L(w,\alpha,\beta)=f(w)+\sum_{i=1}^{k}\alpha_ig_i(w)+\sum_{i=1}^l\beta_ih_i(w)
@@ -113,7 +115,7 @@ Consider the quantity:
 
 If $w$ violates any of the primal constraints (e.g. if either $g_i(w)>0$ or $h_i(w)\neq0$ for some $i$), then we have:
 \begin{align*}
-\theta_p(w)\ &=\ \max_{\alpha,\beta:\alpha_i\geq0}f(w)+\sum_{i=1}^k\alpha_ig_i(w)+\sum_{i=1}^l\beta_ih_i(w) \\
+\theta_p(w)\ &=\ \max_{\alpha,\beta:\alpha_i\geq0}\left(f(w)+\sum_{i=1}^k\alpha_ig_i(w)+\sum_{i=1}^l\beta_ih_i(w)\right) \\
              &=\ \infty
 \end{align*}
 Conversely if all constraints are satisfied for a particular value of $w$, then $\theta_p(w)=f(w)$.
@@ -124,6 +126,58 @@ f(w)\quad &\text{if $w$ satisfies primal constraints} \\
 \infty    &\text{otherwise}
 \end{cases}
 \end{equation*}
+So now the minimization problem becomes:
+\begin{equation*}
+\min_w\theta_p(w)=\min_w\max_{\alpha,\beta:\alpha_i\geq0}L(w,\alpha,\beta)
+\end{equation*}
 
+Define:
+\begin{equation*}
+\theta_D(\alpha,\beta)=\min_wL(w,\alpha,\beta)
+\end{equation*}
+where "D" means "dual", and the \emph{\textbf{dual}} optimization problem is:
+\begin{equation*}
+\max_{\alpha,\beta:\alpha_i\geq0}\theta_D(\alpha,\beta)=\max_{\alpha,\beta:\alpha_i\geq0}\min_wL(w,\alpha,\beta)
+\end{equation*}
+
+So we have the relationship between optimal values of the two problems:
+\begin{equation*}
+d^\star=\max_{\alpha,\beta:\alpha_i\geq0}\min_wL(w,\alpha,\beta)\leq \min_w\max_{\alpha,\beta:\alpha_i\geq0}L(w,\alpha,\beta)=p^\star
+\end{equation*}
+
+Under certain conditions we have $d^\star=p^\star$. 
+Conditions are: $f$ and the $g_i$'s are \emph{convex}, and the $h_i$'s are \emph{affine}, $g_i$'s are strictly feasible (there exists some $w$ so that $g_i(w)<0$ for all $i$)
+Under the 3 assumptions above, we can find $w^\star,\alpha^\star,\beta^\star$ that $w_\star$ and $\alpha^\star,\beta^\star$ are solutions to the primal and dual problems respectively, and $p^\star=d^\star=L(w^\star,\alpha^\star,\beta^\star)$, also, $w^\star,\alpha^\star,\beta^\star$ satisfy the \emph{\textbf{Karush-Kuhn-Tucker(KKT) conditions}}:
+\begin{align*}
+\frac{\partial}{\partial w_i}L(w^\star,\alpha^\star,\beta^\star)\ &=\ 0,\ i=1,\ldots,n \\
+\frac{\partial}{\partial \beta_i}L(w^\star,\alpha^\star,\beta^\star)\ &=\ 0,\ i=1,\ldots,l \\
+\alpha_i^\star g_i(w^\star)\ &=\ 0,\ i=1,\ldots,k \\
+g_i(w^\star)\ &\leq\ 0,\ i=1,\ldots,k \\
+\alpha^\star\ &\geq\ 0,\ i=1,\ldots,k
+\end{align*}
+Conversely, if some $w^\star,\alpha^\star,\beta^\star$ satisfy the \emph{\textbf{KKT}} conditions, then they are also a solution to the primal and dual problems.
+
+\emph{\textbf{attributes}} of a problem: the "original" input value
+
+\emph{\textbf{features}} of a problem: the set of quantities that are mapped to and passed to the learning algorithm. The mapping process from attributes to features is called \emph{\textbf{feature mapping}}, represented by $\phi$.
+
+For a certain feature mapping $\phi$, define \emph{\textbf{Kernel}} to be:
+\begin{equation*}
+K(x,z)=\phi(x)^T\phi(z)
+\end{equation*}
+Then we replace all the $\langle x,z\rangle$ in algorithm with $K(x,z)$, since the kernel may be very inexpensive to calculate, even though $\phi(x)$ itself may be very expensive to calculate (could be extremely high dimensional vector).
+
+Define \emph{\textbf{primal problem with regularization}} as:
+\begin{align*}
+\min\nolimits_{\gamma,w,b}\quad &\quad\frac{1}{2}\lVert w\rVert^2+C\sum_{i=1}^m\varepsilon_i \\
+      \text{s.t.}\quad &\quad y^{(i)}(w^Tx^{(i)}+b)\geq1-\varepsilon_i,\ i=1,\ldots,m \\
+                       &\quad\varepsilon_i\geq0,\ i=1,\ldots,m
+\end{align*}
+Now examples are permitted to have \emph{functional margins} less than 1, and if an example has functional $1-\varepsilon_i\ (\varepsilon_i>0)$, we would pay a cost of the objective function being increased by $C\varepsilon_i$.
+We can do the same dual problem trick as before.
+
+
+\emph{\textbf{the SMO algorithm}}
+read the book later.
 
 \end{document} 
