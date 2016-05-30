@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{indentfirst}
+\usepackage{mathtools}
+\usepackage{setspace}
+\setlength{\parindent}{2em}
+\begin{document}
+\title{Learning Theory}\author{jufan}\date{\today}
+\maketitle
+\tableofcontents
+
+\emph{\textbf{generalization error}}: for a hypothesis, it's the expected error on examples not in the training set. two components: bias \& variance
+
+\emph{\textbf{bias}}: for a model, even if we fit it to a infinitely large training set, generalization error exists, that's bias. (distance from truth, difference between the expected (or average) prediction of our model and the correct value which we are trying to predict)
+
+\emph{\textbf{variance}}:  the variability of a model prediction for a given data point. Again, imagine you can repeat the entire model building process multiple times. The variance is how much the predictions for a given point vary between different realizations of the model.
+
+Tradeoff between bias and variance: \\
+Simple model with few parameters, may have large bias (but small variance)
+Complex model with many parameters, may have large variance (but small bias).
+
+\emph{\textbf{Lemma 1 (The union bound)}} Let $A_1,A_2,\ldots,A_k$ be $k$ different events (that may not be independent). Then we have
+\begin{equation*}
+P(A_1\cup\cdots\cup A_k)\leq P(A_1)+\ldots+P(A_k)
+\end{equation*}
+
+\emph{\textbf{Lemma 2 (Hoeffding inequality/Chernoff bound)}} Let $Z_1,\ldots,Z_m$ be $m$ independent and identically distributed (iid) random variables drawn from a Bernoulli($\phi$) distribution. ($P(Z_i=1)=\phi,P(Z_i=0)=1-\phi$).
+Let $\hat{\phi}=(1/m)\sum\nolimits_{i=1}^mZ_i$ be the mean of these random variables, and let any $\gamma>0$ be fixed. Then we have:
+\begin{equation*}
+P(\lvert\phi-\hat{\phi}\rvert>\gamma)\leq2\exp(-2\gamma^2m)
+\end{equation*}
+
+For a given training set $S=\{(x^{(i)},y^{(i)});i=1,\ldots,m)\}$ of size $m$ 
+
+\end{document} 
